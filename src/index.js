@@ -3,6 +3,9 @@ import ReactDOM from "react-dom"
 import App from "./App"
 import "./index.css"
 import reportWebVitals from "./reportWebVitals"
+import axios from "axios"
+
+axios.defaults.baseURL = "https://jsonplaceholder.typicode.com"
 
 ReactDOM.render(
   <React.StrictMode>

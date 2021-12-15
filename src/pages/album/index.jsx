@@ -3,7 +3,6 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import AlbumCard from "../../components/Cards/AlbumCard"
-import ArtisteCard from "../../components/Cards/ArtisteCard"
 
 const Album = () => {
   const [allAlbums, setAllAlbums] = useState([])
