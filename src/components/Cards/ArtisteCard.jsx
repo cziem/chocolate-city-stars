@@ -1,4 +1,4 @@
-import { Collapse, Link } from "@mui/material"
+import { Collapse /* Link */ } from "@mui/material"
 import Button from "@mui/material/Button"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -7,16 +7,9 @@ import Typography from "@mui/material/Typography"
 import * as React from "react"
 import { ImEarth } from "react-icons/im"
 import { MdEmail, MdPhoneIphone } from "react-icons/md"
+import { Link } from "react-router-dom"
 
-const ArtisteCard = ({
-  name,
-  username,
-  phone,
-  email,
-  website,
-  address,
-  company,
-}) => {
+const ArtisteCard = ({ ...artiste }) => {
   const [expanded, setExpanded] = React.useState(false)
 
   const handleMore = () => {
@@ -27,27 +20,28 @@ const ArtisteCard = ({
     <Card sx={{ minWidth: 275, width: "31.5%", mb: 3 }}>
       <CardContent>
         <Link
-          href={`/albums/@${username}`}
+          to={`/albums/@${artiste.username}`}
+          state={{ artiste: artiste }}
           sx={{ fontSize: 14 }}
           color="text.secondary"
-          gutterBottom
+          // gutterBottom
         >
           Album Details
         </Link>
         <Typography variant="h5" component="div">
-          {name}
+          {artiste.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          @{username}
+          @{artiste.username}
         </Typography>
         <Typography variant="body2">
-          <MdEmail /> <span>{email}</span>
+          <MdEmail /> <span>{artiste.email}</span>
         </Typography>
         <Typography variant="body2">
-          <MdPhoneIphone /> <span>{phone}</span>
+          <MdPhoneIphone /> <span>{artiste.phone}</span>
         </Typography>
         <Typography variant="body2">
-          <ImEarth /> <span>{website}</span>
+          <ImEarth /> <span>{artiste.website}</span>
         </Typography>
       </CardContent>
       <CardActions>
@@ -60,12 +54,13 @@ const ArtisteCard = ({
         <CardContent>
           <Typography variant="caption">Address:</Typography>
           <Typography variant="body2" color="text.secondary">
-            {address.street}, {address.suite}, {address.city}.
+            {artiste.address.street}, {artiste.address.suite},{" "}
+            {artiste.address.city}.
           </Typography>
           <br />
           <Typography variant="caption">Company:</Typography>
           <Typography variant="body2" color="text.secondary">
-            {company.name} - <em>{company.catchPhrase}</em>
+            {artiste.company.name} - <em>{artiste.company.catchPhrase}</em>
           </Typography>
         </CardContent>
       </Collapse>

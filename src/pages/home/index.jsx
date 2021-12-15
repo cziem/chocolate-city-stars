@@ -16,8 +16,6 @@ const Home = () => {
 
   useEffect(() => getAllArtists(), [])
 
-  console.log(allArtists, "artists")
-
   return (
     <Container>
       <Box sx={{ my: 2 }}>
