@@ -69,8 +69,8 @@ const Header = (props) => {
 
   return (
     <ElevationScroll {...props}>
-      <AppBar>
-        <Container maxWidth="xl" className="appbar-main">
+      <AppBar className="appbar-root">
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
               variant="h6"
