@@ -35,13 +35,34 @@ const ArtisteCard = ({ ...artiste }) => {
           @{artiste.username}
         </Typography>
         <Typography variant="body2">
-          <MdEmail /> <span>{artiste.email}</span>
+          <MdEmail />
+          <a
+            href={`mailto:${artiste.email}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "#666666",
+              textDecoration: "none",
+              textTransform: "lowercase",
+              marginLeft: "0.2em",
+            }}
+          >
+            {artiste.email}
+          </a>
         </Typography>
         <Typography variant="body2">
           <MdPhoneIphone /> <span>{artiste.phone}</span>
         </Typography>
         <Typography variant="body2">
-          <ImEarth /> <span>{artiste.website}</span>
+          <ImEarth />{" "}
+          <a
+            href={`https://${artiste.website}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#666666" }}
+          >
+            {artiste.website}
+          </a>
         </Typography>
       </CardContent>
       <CardActions>
