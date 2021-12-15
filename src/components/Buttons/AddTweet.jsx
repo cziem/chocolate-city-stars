@@ -1,6 +1,7 @@
 import { Box, Fab } from "@mui/material"
 import React from "react"
 import { MdAdd } from "react-icons/md"
+import "./addTweet.styles.scss"
 
 const AddTweet = ({ handleClick }) => {
   return (
@@ -18,7 +19,7 @@ const AddTweet = ({ handleClick }) => {
         aria-label="add"
         onClick={handleClick}
       >
-        <MdAdd /> Tweet
+        <MdAdd className="add-icon" /> Tweet
       </Fab>
     </Box>
   )
