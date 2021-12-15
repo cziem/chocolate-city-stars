@@ -1,14 +1,15 @@
+import { Box } from "@mui/material"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
-import axios from "axios"
 import * as React from "react"
 import { MdDelete, MdEdit } from "react-icons/md"
+import "./tweetCard.styles.scss"
 
 const TweetCard = ({ handleDelete, handleUpdate, ...tweet }) => {
   return (
-    <Card sx={{ minWidth: 275, width: "31.5%", mb: 3 }}>
+    <Card sx={{ mb: 3 }} className="card-main">
       <CardContent>
         <Typography
           sx={{ textTransform: "capitalize" }}
@@ -22,9 +23,14 @@ const TweetCard = ({ handleDelete, handleUpdate, ...tweet }) => {
         </Typography>
         <Typography variant="body2">{tweet.body}</Typography>
       </CardContent>
-      <CardActions>
-        <MdEdit onClick={() => handleUpdate(tweet.id)} />
-        <MdDelete onClick={() => handleDelete(tweet.id)} />
+      <CardActions
+        className="card-actions"
+        sx={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        <Box className="action-btns">
+          <MdEdit onClick={() => handleUpdate(tweet.id)} />
+          <MdDelete onClick={() => handleDelete(tweet.id)} />
+        </Box>
       </CardActions>
     </Card>
   )

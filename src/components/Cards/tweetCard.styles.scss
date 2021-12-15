@@ -1,0 +1,29 @@
+.card-main {
+  position: relative;
+  width: 31.5%;
+  min-width: 227px;
+
+  @media only screen and (max-width: "600px") {
+    width: 100%;
+  }
+}
+
+.card-actions {
+  overflow: hidden;
+  // position: relative;
+
+  .action-btns {
+    position: absolute;
+    bottom: -10%;
+    transition: bottom 0.2s ease-in-out;
+  }
+
+  & svg {
+    cursor: pointer;
+    margin-right: 0.4em;
+  }
+}
+
+.card-main:hover .card-actions .action-btns {
+  bottom: 10%;
+}
