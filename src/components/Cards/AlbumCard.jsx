@@ -4,10 +4,11 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import * as React from "react"
 import { Link } from "react-router-dom"
+import "./card.styles.scss"
 
 const AlbumCard = ({ id, title, username }) => {
   return (
-    <Card sx={{ minWidth: 275, width: "31.5%", mb: 3 }}>
+    <Card sx={{ mb: 3 }} className="card-main">
       <CardMedia
         component="img"
         height="160"

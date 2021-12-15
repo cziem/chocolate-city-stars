@@ -8,6 +8,7 @@ import * as React from "react"
 import { ImEarth } from "react-icons/im"
 import { MdEmail, MdPhoneIphone } from "react-icons/md"
 import { Link } from "react-router-dom"
+import "./card.styles.scss"
 
 const ArtisteCard = ({ ...artiste }) => {
   const [expanded, setExpanded] = React.useState(false)
@@ -17,14 +18,13 @@ const ArtisteCard = ({ ...artiste }) => {
   }
 
   return (
-    <Card sx={{ minWidth: 275, width: "31.5%", mb: 3 }}>
+    <Card sx={{ mb: 3 }} className="card-main">
       <CardContent>
         <Link
           to={`/albums/@${artiste.username}`}
           state={{ artiste: artiste }}
           sx={{ fontSize: 14 }}
-          color="text.secondary"
-          // gutterBottom
+          className="link-main"
         >
           Album Details
         </Link>
@@ -45,7 +45,11 @@ const ArtisteCard = ({ ...artiste }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={handleMore}>
+        <Button
+          sx={{ textTransform: "lowercase" }}
+          size="small"
+          onClick={handleMore}
+        >
           See More
         </Button>
       </CardActions>

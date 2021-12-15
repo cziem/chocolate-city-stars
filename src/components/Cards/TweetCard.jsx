@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import * as React from "react"
 import { MdDelete, MdEdit } from "react-icons/md"
-import "./tweetCard.styles.scss"
+import "./card.styles.scss"
 
 const TweetCard = ({ handleDelete, handleUpdate, ...tweet }) => {
   return (
