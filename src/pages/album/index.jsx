@@ -19,8 +19,6 @@ const Album = () => {
 
   useEffect(() => getAllAlbums(), [])
 
-  console.log(allAlbums, "albums")
-
   return (
     <Container>
       <Box sx={{ my: 2 }}>
