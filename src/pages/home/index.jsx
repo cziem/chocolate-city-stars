@@ -1,18 +1,39 @@
-import { Box, Container } from "@mui/material"
-import React from "react"
+import { Box, Container, Grid } from "@mui/material"
+import axios from "axios"
+import React, { useEffect, useState } from "react"
+import ArtisteCard from "../../components/Cards/ArtisteCard"
 
 const Home = () => {
+  const [allArtists, setAllArtists] = useState([])
+
+  const getAllArtists = async () => {
+    const { data } = await axios.get(
+      "https://jsonplaceholder.typicode.com/users "
+    )
+
+    setAllArtists(data)
+  }
+
+  useEffect(() => getAllArtists(), [])
+
+  console.log(allArtists, "artists")
+
   return (
     <Container>
       <Box sx={{ my: 2 }}>
-        {[...new Array(20)]
-          .map(
-            () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-          )
-          .join("\n")}
+        <Grid
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          {!!allArtists.length
+            ? allArtists.map((artiste) => (
+                <ArtisteCard key={artiste.id} {...artiste} />
+              ))
+            : "No artistes available"}
+        </Grid>
       </Box>
     </Container>
   )
