@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography"
 import useScrollTrigger from "@mui/material/useScrollTrigger"
 import PropTypes from "prop-types"
 import React from "react"
+import "./header.styles.scss"
 
 function ElevationScroll(props) {
   const { children, window } = props
@@ -38,10 +39,10 @@ const Header = (props) => {
     <React.Fragment>
       <CssBaseline />
       <ElevationScroll {...props}>
-        <AppBar>
+        <AppBar className="appbar-main">
           <Toolbar>
             <Typography variant="h6" component="div">
-              Chocolate City All Stars
+              <b>ChocCity</b> Stars
             </Typography>
           </Toolbar>
         </AppBar>
