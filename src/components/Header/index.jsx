@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu"
-import { Link } from "@mui/material"
+import { Link, useScrollTrigger } from "@mui/material"
 import AppBar from "@mui/material/AppBar"
 import Avatar from "@mui/material/Avatar"
 import Box from "@mui/material/Box"
@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
+import PropTypes from "prop-types"
 import "./header.styles.scss"
 
 const pages = [
@@ -26,7 +27,25 @@ const pages = [
 ]
 const settings = ["Account"]
 
-const Header = () => {
+function ElevationScroll(props) {
+  const { children, window } = props
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  })
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  })
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  window: PropTypes.func,
+}
+
+const Header = (props) => {
   const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
@@ -49,133 +68,135 @@ const Header = () => {
   const goHome = () => navigate("/")
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl" className="appbar-main">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            onClick={goHome}
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              cursor: "pointer",
-            }}
-          >
-            <b>Chocity</b> Stars
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <ElevationScroll {...props}>
+      <AppBar>
+        <Container maxWidth="xl" className="appbar-main">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              onClick={goHome}
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                cursor: "pointer",
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page.text}
-                  onClick={() => {
-                    navigate(page.href)
-                    handleCloseNavMenu()
-                  }}
-                >
-                  <Typography
-                    textAlign="center"
-                    sx={{ textTransform: "capitalize" }}
-                  >
-                    {page.text}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            onClick={goHome}
-            sx={{
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-              cursor: "pointer",
-            }}
-          >
-            <b>Chocity</b> Stars
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Link
-                href={`${page.href}`}
-                key={page.text}
-                onClick={handleCloseNavMenu}
+              <b>Chocity</b> Stars
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
                 sx={{
-                  m: 2,
-                  color: "white",
-                  display: "block",
-                  textTransform: "capitalize",
+                  display: { xs: "block", md: "none" },
                 }}
               >
-                {page.text}
-              </Link>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+                {pages.map((page) => (
+                  <MenuItem
+                    key={page.text}
+                    onClick={() => {
+                      navigate(page.href)
+                      handleCloseNavMenu()
+                    }}
+                  >
+                    <Typography
+                      textAlign="center"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {page.text}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              onClick={goHome}
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "none" },
+                cursor: "pointer",
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              <b>Chocity</b> Stars
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Link
+                  href={`${page.href}`}
+                  key={page.text}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    m: 2,
+                    color: "white",
+                    display: "block",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {page.text}
+                </Link>
               ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </ElevationScroll>
   )
 }
 export default Header

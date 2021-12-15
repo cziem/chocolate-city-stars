@@ -43,7 +43,7 @@ const Tweets = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{ mt: "7em" }}>
       <Box sx={{ my: 2 }}>
         <Grid
           sx={{

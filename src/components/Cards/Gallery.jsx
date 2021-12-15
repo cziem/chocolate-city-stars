@@ -19,7 +19,9 @@ const Gallery = () => {
   useEffect(() => getAllAlbums(), [])
 
   return (
-    <Container sx={{ width: "100%", height: "auto", overflowY: "auto" }}>
+    <Container
+      sx={{ width: "100%", height: "auto", overflowY: "auto", mt: "4em" }}
+    >
       <Grid>
         <ImageList variant="masonry" cols={5} gap={8}>
           {allPhotos.map((photo) => (
