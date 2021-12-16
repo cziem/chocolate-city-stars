@@ -2,7 +2,14 @@
   position: relative;
   width: 31.5%;
   min-width: 227px;
-  height: 20%;
+  min-height: 20%;
+
+  &--artist {
+    position: relative;
+    width: 31.5%;
+    min-width: 227px;
+    height: 20%;
+  }
 
   @media only screen and (max-width: "600px") {
     width: 100%;
@@ -12,11 +19,10 @@
 
 .card-actions {
   overflow: hidden;
-  // position: relative;
 
   .action-btns {
     position: absolute;
-    bottom: -10%;
+    bottom: -14%;
     transition: bottom 0.2s ease-in-out;
   }
 

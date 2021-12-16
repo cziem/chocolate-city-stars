@@ -18,7 +18,7 @@ const ArtisteCard = ({ ...artiste }) => {
   }
 
   return (
-    <Card sx={{ mb: 3 }} className="card-main">
+    <Card sx={{ mb: 3 }} className="card-main--artist">
       <CardContent>
         <Link
           to={`/albums/@${artiste.username}`}

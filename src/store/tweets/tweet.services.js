@@ -16,7 +16,6 @@ export const tweetApi = createApi({
       },
     }),
     createTweet: builder.mutation({
-      // note: an optional `queryFn` may be used in place of `query`
       query: ({ ...body }) => ({
         url: `comments`,
         body: body,
@@ -31,7 +30,6 @@ export const tweetApi = createApi({
       },
     }),
     updateTweet: builder.mutation({
-      // note: an optional `queryFn` may be used in place of `query`
       query: ({ id, ...patch }) => ({
         url: `comments/${id}`,
         body: patch,
@@ -45,7 +43,6 @@ export const tweetApi = createApi({
       },
     }),
     deleteTweet: builder.mutation({
-      // note: an optional `queryFn` may be used in place of `query`
       query: ({ tweetId }) => ({
         url: `comments/${tweetId}`,
         method: "DELETE",
