@@ -54,3 +54,5 @@ Tweet page is built for communication, helps artiste's keep in touch and engage 
 ## Road Map
 
 In the next product release, **ChocityStars** will enable `authentication` and `authorization` protocols to protect you our dear user and ensure you are in control of your data.
+
+> Visit [ChocityStars Live Project](https://chocolate-city-stars.vercel.app/)
