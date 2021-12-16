@@ -1,20 +1,24 @@
 import { Box, Container, Grid } from "@mui/material"
-import axios from "axios"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import ArtisteCard from "../../components/Cards/ArtisteCard"
+import Loading from "../../components/Loading"
+import NoData from "../../components/NoData"
+import { useGetArtistsQuery } from "../../store/artistes/artiste.service"
 
 const Home = () => {
-  const [allArtists, setAllArtists] = useState([])
+  const { data, isLoading } = useGetArtistsQuery()
 
-  const getAllArtists = async () => {
-    const { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/users "
-    )
-
-    setAllArtists(data)
+  const computeArtistsUI = () => {
+    if (isLoading) {
+      return <Loading />
+    } else if (!!data.length) {
+      return data.map((artiste) => (
+        <ArtisteCard key={artiste.id} {...artiste} />
+      ))
+    } else {
+      return <NoData message="No artistes available" />
+    }
   }
-
-  useEffect(() => getAllArtists(), [])
 
   return (
     <Container sx={{ mt: "7em" }}>
@@ -26,11 +30,7 @@ const Home = () => {
             justifyContent: "space-between",
           }}
         >
-          {!!allArtists.length
-            ? allArtists.map((artiste) => (
-                <ArtisteCard key={artiste.id} {...artiste} />
-              ))
-            : "No artistes available"}
+          {computeArtistsUI()}
         </Grid>
       </Box>
     </Container>

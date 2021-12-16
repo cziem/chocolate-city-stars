@@ -1,22 +1,29 @@
 import { Box, Container, Grid } from "@mui/material"
-import axios from "axios"
-import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import AlbumCard from "../../components/Cards/AlbumCard"
+import Loading from "../../components/Loading"
+import NoData from "../../components/NoData"
+import { useGetAlbumsQuery } from "../../store/artistes/artiste.service"
 
 const Album = () => {
-  const [allAlbums, setAllAlbums] = useState([])
   const { state } = useLocation()
+  const { data, isLoading } = useGetAlbumsQuery(state.artiste.id)
 
-  const getAllAlbums = async () => {
-    const { data } = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${state.artiste.id}/albums`
-    )
-
-    setAllAlbums(data)
+  const computeAlbumsUI = () => {
+    if (isLoading) {
+      return <Loading />
+    } else if (!!data.length) {
+      return data.map((album) => (
+        <AlbumCard
+          key={album.id}
+          {...album}
+          username={state.artiste.username}
+        />
+      ))
+    } else {
+      return <NoData message="No albums available" />
+    }
   }
-
-  useEffect(() => getAllAlbums(), [])
 
   return (
     <Container sx={{ mt: "7em" }}>
@@ -28,15 +35,7 @@ const Album = () => {
             justifyContent: "space-between",
           }}
         >
-          {!!allAlbums.length
-            ? allAlbums.map((album) => (
-                <AlbumCard
-                  key={album.id}
-                  {...album}
-                  username={state.artiste.username}
-                />
-              ))
-            : "No artistes available"}
+          {computeAlbumsUI()}
         </Grid>
       </Box>
     </Container>

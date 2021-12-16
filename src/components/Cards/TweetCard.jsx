@@ -19,7 +19,7 @@ const TweetCard = ({ handleDelete, handleUpdate, ...tweet }) => {
           {tweet.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          by {tweet.email.toLowerCase()}
+          by {tweet.email ? tweet.email.toLowerCase() : "guest artist"}
         </Typography>
         <Typography variant="body2">{tweet.body}</Typography>
       </CardContent>

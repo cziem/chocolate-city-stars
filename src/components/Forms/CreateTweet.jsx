@@ -1,9 +1,10 @@
-import { Button, FormGroup, TextField } from "@mui/material"
+import { Button, CircularProgress, FormGroup, TextField } from "@mui/material"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import { Formik } from "formik"
 import * as React from "react"
 import * as Yup from "yup"
+import { useCreateTweetMutation } from "../../store/tweets/tweet.services"
 import CustomModal from "../Modal"
 
 const style = {
@@ -25,16 +26,17 @@ const formStyles = {
 
 const CreateTweet = ({ open, handleClose }) => {
   const initialValues = {
-    title: "",
+    name: "",
     body: "",
   }
   const tweetSchema = Yup.object().shape({
-    title: Yup.string()
+    name: Yup.string()
       .min(2, "Too Short!")
       .max(30, "Too Long!")
       .required("Required"),
     body: Yup.string().min(2, "Too Short!").required("Required"),
   })
+  const [createTweet, { isLoading }] = useCreateTweetMutation()
 
   return (
     <CustomModal open={open} handleClose={handleClose}>
@@ -51,9 +53,9 @@ const CreateTweet = ({ open, handleClose }) => {
         <Formik
           initialValues={initialValues}
           validationSchema={tweetSchema}
-          onSubmit={(values) => {
-            // same shape as initial values
-            console.log(values)
+          onSubmit={async (values) => {
+            await createTweet({ ...values })
+            handleClose()
           }}
         >
           {({
@@ -68,13 +70,13 @@ const CreateTweet = ({ open, handleClose }) => {
               <FormGroup sx={{ mb: 2 }}>
                 <TextField
                   placeholder="Title"
-                  name="title"
-                  value={values.title}
+                  name="name"
+                  value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={!!errors.title}
+                  error={!!errors.name}
                   touched={touched}
-                  helperText={errors.title && errors.title}
+                  helperText={errors.name && errors.name}
                 />
               </FormGroup>
               <FormGroup sx={{ mb: 2 }}>
@@ -93,7 +95,13 @@ const CreateTweet = ({ open, handleClose }) => {
               </FormGroup>
 
               <FormGroup sx={{ mt: 2 }}>
-                <Button type="submit">Submit</Button>
+                <Button type="submit">
+                  {isLoading ? (
+                    <CircularProgress sx={{ color: "#808080" }} />
+                  ) : (
+                    "Tweet"
+                  )}
+                </Button>
               </FormGroup>
             </form>
           )}

@@ -1,44 +1,47 @@
-import { Box, Container, Fab, Grid } from "@mui/material"
-import axios from "axios"
-import React, { useEffect, useState } from "react"
-import { MdAdd } from "react-icons/md"
+import { Box, Container, Grid } from "@mui/material"
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
 import AddTweet from "../../components/Buttons/AddTweet"
 import TweetCard from "../../components/Cards/TweetCard"
 import CreateTweet from "../../components/Forms/CreateTweet"
 import UpdateTweet from "../../components/Forms/UpdateTweet"
+import Loading from "../../components/Loading"
+import NoData from "../../components/NoData"
+import {
+  useDeleteTweetMutation,
+  useGetTweetsQuery,
+} from "../../store/tweets/tweet.services"
 
 const Tweets = () => {
-  const [allTweets, setAllTweets] = useState([])
+  const { tweets } = useSelector(({ tweet }) => tweet)
+  const { isLoading } = useGetTweetsQuery()
+  const [deleteTweet] = useDeleteTweetMutation()
   const [openNewTweet, setOpenNewTweet] = useState(false)
   const [updateTweet, setUpdateTweet] = useState({
     open: false,
     tweetId: "",
   })
 
-  const getAllTweets = async () => {
-    const { data } = await axios.get(
-      "https://jsonplaceholder.typicode.com/comments "
-    )
-
-    setAllTweets(data)
-  }
-
-  useEffect(() => getAllTweets(), [])
-
-  const handleNewTweet = () => {}
-
   const handleSetUpdate = async (tweetId) => {
     setUpdateTweet({ open: true, tweetId })
   }
-  const handleUpdate = async (tweetId) => {}
 
-  const handleDelete = async (tweetId) => {
-    const result = await axios.delete(`/comments/${tweetId}`)
+  const handleDelete = async (tweetId) => deleteTweet({ tweetId })
 
-    if (result.status === 200) {
-      // Only update the Tweet list when it's cleared from the server
-      const updatedTweetList = allTweets.filter((tweet) => tweet.id !== tweetId)
-      setAllTweets(updatedTweetList)
+  const computeTweetUI = () => {
+    if (isLoading) {
+      return <Loading />
+    } else if (!!tweets.length) {
+      return tweets.map((tweet) => (
+        <TweetCard
+          key={tweet.id}
+          {...tweet}
+          handleDelete={handleDelete}
+          handleUpdate={handleSetUpdate}
+        />
+      ))
+    } else {
+      return <NoData message="No tweets available" />
     }
   }
 
@@ -52,16 +55,7 @@ const Tweets = () => {
             justifyContent: "space-between",
           }}
         >
-          {!!allTweets.length
-            ? allTweets.map((tweet) => (
-                <TweetCard
-                  key={tweet.id}
-                  {...tweet}
-                  handleDelete={handleDelete}
-                  handleUpdate={handleSetUpdate}
-                />
-              ))
-            : "No tweets available"}
+          {computeTweetUI()}
         </Grid>
 
         <AddTweet handleClick={() => setOpenNewTweet(!openNewTweet)} />
@@ -70,10 +64,13 @@ const Tweets = () => {
           open={openNewTweet}
           handleClose={() => setOpenNewTweet(false)}
         />
-        <UpdateTweet
-          open={updateTweet.open}
-          handleClose={() => setUpdateTweet({ open: false, tweetId: "" })}
-        />
+        {updateTweet.open && (
+          <UpdateTweet
+            open={updateTweet.open}
+            tweet={tweets.find((tweet) => tweet.id === updateTweet.tweetId)}
+            handleClose={() => setUpdateTweet({ open: false, tweetId: "" })}
+          />
+        )}
       </Box>
     </Container>
   )
