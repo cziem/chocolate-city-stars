@@ -1,13 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import { Provider } from "react-redux"
 import App from "./App"
 import "./index.css"
 import reportWebVitals from "./reportWebVitals"
-import axios from "axios"
-import { Provider } from "react-redux"
 import { store } from "./store"
-
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com"
 
 ReactDOM.render(
   <React.StrictMode>
