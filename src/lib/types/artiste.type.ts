@@ -6,6 +6,13 @@ export type TArtiste = {
   name: string
   email: string
   phone: string
+  website: string
   address: IAddress
   company: ICompany
+}
+
+export type TAlbum = {
+  id: string
+  title: string
+  username: string
 }
