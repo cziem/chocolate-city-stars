@@ -3,11 +3,17 @@ import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
-import * as React from "react"
 import { MdDelete, MdEdit } from "react-icons/md"
+import { TTweets } from "../../lib/types/tweet.type"
 import "./card.styles.scss"
 
-const TweetCard = ({ handleDelete, handleUpdate, ...tweet }) => {
+interface ITCProps {
+  handleUpdate: (id: string | undefined) => Promise<void>;
+  handleDelete: (id: string | undefined) => Promise<void>;
+  tweet: TTweets
+}
+
+const TweetCard = ({ handleDelete, handleUpdate, tweet }: ITCProps) => {
   return (
     <Card sx={{ mb: 3 }} className="card-main">
       <CardContent>

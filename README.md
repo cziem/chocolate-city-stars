@@ -35,6 +35,33 @@ console.log(findSmallestNonRecurringNumber([11, 30, 16, 44, 10, 23, 5, 18])) // 
 console.log(findSmallestNonRecurringNumber([5, -1, -3])) // Expected output 1
 ```
 
+```ts
+const findSmallestNonRecurringNumber = (arr: number[]): number | undefined => {
+  if (!Array.isArray(arr)) {
+    throw new Error(`Expected an Array but got type of ${typeof arr}`)
+  }
+
+  let smallestNum = Math.min(...arr)
+  let sortedArr = arr.sort((a, b) => a - b)
+
+  for (let i = 0; i < sortedArr.length - 1; i++) {
+    if (Math.sign(smallestNum) === -1) {
+      smallestNum++
+    }
+    if (smallestNum + 1 === sortedArr[i + 1]) {
+      smallestNum++
+    } else if (smallestNum + 1 < sortedArr[i + 1]) {
+      return smallestNum + 1
+    }
+  }
+}
+
+console.log(findSmallestNonRecurringNumber([1, 3, 6, 4, 1, 2]))
+console.log(findSmallestNonRecurringNumber([1, 3, 6, 4, 1, 2, 5, 8]))
+console.log(findSmallestNonRecurringNumber([11, 30, 16, 44, 10, 23, 5, 18]))
+console.log(findSmallestNonRecurringNumber([5, -1, -3]))
+```
+
 ## How to setup `ChocityStar`
 
 - Clone the repository

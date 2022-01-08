@@ -5,7 +5,9 @@ import * as React from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
 import CustomModal from "../Modal"
-import { useUpdateTweetMutation } from "../../store/tweets/tweet.services"
+import { TTweets } from "../../lib/types/tweet.type"
+import { useUpdateTweetMutation } from "../../store/tweets/tweet.service"
+
 
 const style = {
   position: "absolute",
@@ -16,16 +18,22 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
-}
+} as const
 
 const formStyles = {
   display: "flex",
   flexDirection: "column",
   marginTop: "1em",
+} as const
+
+interface IUpdateTweetProps {
+  tweet: TTweets;
+  open: boolean;
+  handleClose: () => void;
 }
 
-const UpdateTweet = ({ tweet, open, handleClose }) => {
-  const initialValues = {
+const UpdateTweet = ({ tweet, open, handleClose }: IUpdateTweetProps) => {
+  const initialValues: TTweets = {
     name: tweet.name || "",
     body: tweet.body || "",
   }
@@ -60,7 +68,6 @@ const UpdateTweet = ({ tweet, open, handleClose }) => {
         >
           {({
             errors,
-            touched,
             handleBlur,
             handleChange,
             values,
@@ -69,27 +76,25 @@ const UpdateTweet = ({ tweet, open, handleClose }) => {
             <form onSubmit={handleSubmit} style={formStyles}>
               <FormGroup sx={{ mb: 2 }}>
                 <TextField
-                  placeholder="Title"
                   name="name"
-                  value={values.name}
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  value={values.name}
+                  placeholder="Title"
                   error={!!errors.name}
-                  touched={touched}
+                  onChange={handleChange}
                   helperText={errors.name && errors.name}
                 />
               </FormGroup>
               <FormGroup sx={{ mb: 2 }}>
                 <TextField
-                  name="body"
-                  placeholder="What is on your mind?"
                   multiline
+                  name="body"
                   minRows={4}
                   value={values.body}
                   onBlur={handleBlur}
-                  onChange={handleChange}
                   error={!!errors.body}
-                  touched={touched}
+                  onChange={handleChange}
+                  placeholder="What is on your mind?"
                   helperText={errors.body && errors.body}
                 />
               </FormGroup>

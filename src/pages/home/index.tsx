@@ -1,18 +1,18 @@
 import { Box, Container, Grid } from "@mui/material"
-import React from "react"
 import ArtisteCard from "../../components/Cards/ArtisteCard"
 import Loading from "../../components/Loading"
 import NoData from "../../components/NoData"
+import { TArtiste } from "../../lib/types/artiste.type"
 import { useGetArtistsQuery } from "../../store/artistes/artiste.service"
 
 const Home = () => {
-  const { data, isLoading } = useGetArtistsQuery()
+  const { data, isLoading } = useGetArtistsQuery(undefined)
 
   const computeArtistsUI = () => {
     if (isLoading) {
       return <Loading />
-    } else if (!!data.length) {
-      return data.map((artiste) => (
+    } else if (data && !!data.length) {
+      return data.map((artiste: TArtiste) => (
         <ArtisteCard key={artiste.id} {...artiste} />
       ))
     } else {

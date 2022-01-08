@@ -2,7 +2,11 @@ import { Typography } from "@mui/material"
 import Box from "@mui/material/Box"
 import React from "react"
 
-const NoData = ({ message }) => {
+interface NDProps {
+  message: string;
+}
+
+const NoData: React.FC<NDProps> = ({ message }: NDProps) => {
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}

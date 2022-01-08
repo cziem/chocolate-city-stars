@@ -1,4 +1,4 @@
-import { Collapse /* Link */ } from "@mui/material"
+import { Collapse } from "@mui/material"
 import Button from "@mui/material/Button"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -8,9 +8,10 @@ import * as React from "react"
 import { ImEarth } from "react-icons/im"
 import { MdEmail, MdPhoneIphone } from "react-icons/md"
 import { Link } from "react-router-dom"
+import { TArtiste } from "../../lib/types/artiste.type"
 import "./card.styles.scss"
 
-const ArtisteCard = ({ ...artiste }) => {
+const ArtisteCard = (artiste: TArtiste) => {
   const [expanded, setExpanded] = React.useState(false)
 
   const handleMore = () => {
@@ -23,7 +24,6 @@ const ArtisteCard = ({ ...artiste }) => {
         <Link
           to={`/albums/@${artiste.username}`}
           state={{ artiste: artiste }}
-          sx={{ fontSize: 14 }}
           className="link-main"
         >
           Album Details

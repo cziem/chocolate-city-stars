@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box"
 import CircularProgress from "@mui/material/CircularProgress"
-import React from "react"
 import { grey } from "@mui/material/colors"
 
 const Loading = () => {

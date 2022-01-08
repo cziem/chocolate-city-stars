@@ -3,7 +3,7 @@ import React from "react"
 import { MdAdd } from "react-icons/md"
 import "./addTweet.styles.scss"
 
-const AddTweet = ({ handleClick }) => {
+const AddTweet = ({ handleClick }: {handleClick: React.MouseEventHandler<HTMLButtonElement>}) => {
   return (
     <Box
       sx={{

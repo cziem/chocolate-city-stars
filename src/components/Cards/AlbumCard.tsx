@@ -2,11 +2,11 @@ import { CardMedia } from "@mui/material"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
-import * as React from "react"
 import { Link } from "react-router-dom"
+import { TAlbum } from "../../lib/types/artiste.type"
 import "./card.styles.scss"
 
-const AlbumCard = ({ id, title, username }) => {
+const AlbumCard = ({id, title, username}: TAlbum) => {
   return (
     <Card sx={{ mb: 3 }} className="card-main">
       <CardMedia
@@ -22,7 +22,7 @@ const AlbumCard = ({ id, title, username }) => {
         <Link
           to={`/albums/@${username}/${id}`}
           state={{ id: id }}
-          sx={{ fontSize: 14 }}
+          style={{ fontSize: 14 }}
           color="text.secondary"
         >
           See Photos

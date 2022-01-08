@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { insertItem } from "../../lib/helper"
+import { TTweets } from "../../lib/types/tweet.type"
 
-const initialState = {
+interface IState {
+  tweets: TTweets[]
+}
+const initialState: IState = {
   tweets: [],
 }
 

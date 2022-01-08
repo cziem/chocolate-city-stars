@@ -12,7 +12,6 @@ import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
-import PropTypes from "prop-types"
 import "./header.styles.scss"
 
 const pages = [
@@ -27,33 +26,36 @@ const pages = [
 ]
 const settings = ["Account"]
 
-function ElevationScroll(props) {
-  const { children, window } = props
+interface Props {
+  window?: () => Window;
+  children: React.ReactElement;
+}
+
+function ElevationScroll(props: Props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
     target: window ? window() : undefined,
-  })
+  });
 
   return React.cloneElement(children, {
     elevation: trigger ? 4 : 0,
-  })
+  });
 }
 
-ElevationScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  window: PropTypes.func,
-}
-
-const Header = (props) => {
+const Header = (props: any) => {
   const navigate = useNavigate()
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
   }
 
@@ -199,4 +201,5 @@ const Header = (props) => {
     </ElevationScroll>
   )
 }
+
 export default Header

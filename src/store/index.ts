@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
-import { tweetApi } from "./tweets/tweet.services"
+import { tweetApi } from "./tweets/tweet.service"
 import { artistApi } from "./artistes/artiste.service"
 import tweetReducer from "./tweets/tweet.slice"
 
@@ -15,3 +15,5 @@ export const store = configureStore({
 })
 
 setupListeners(store.dispatch)
+
+export type IRootState = ReturnType<typeof store.getState>
