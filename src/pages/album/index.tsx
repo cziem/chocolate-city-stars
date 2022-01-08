@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import AlbumCard from "../../components/Cards/AlbumCard"
 import Loading from "../../components/Loading"
 import NoData from "../../components/NoData"
+import { TAlbum } from "../../lib/types/artiste.type"
 import { useGetAlbumsQuery } from "../../store/artistes/artiste.service"
 
 const Album = () => {
@@ -12,8 +13,8 @@ const Album = () => {
   const computeAlbumsUI = () => {
     if (isLoading) {
       return <Loading />
-    } else if (!!data.length) {
-      return data.map((album) => (
+    } else if (data && !!data?.length) {
+      return data.map((album: TAlbum) => (
         <AlbumCard
           key={album.id}
           {...album}

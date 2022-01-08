@@ -1,4 +1,5 @@
 import { Box, Container, Grid } from "@mui/material"
+import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState"
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import AddTweet from "../../components/Buttons/AddTweet"
@@ -7,13 +8,11 @@ import CreateTweet from "../../components/Forms/CreateTweet"
 import UpdateTweet from "../../components/Forms/UpdateTweet"
 import Loading from "../../components/Loading"
 import NoData from "../../components/NoData"
-import {
-  useDeleteTweetMutation,
-  useGetTweetsQuery,
-} from "../../store/tweets/tweet.services"
+import { TTweets } from "../../lib/types/tweet.type"
+import { useDeleteTweetMutation, useGetTweetsQuery } from "../../store/tweets/tweet.service"
 
 const Tweets = () => {
-  const { tweets } = useSelector(({ tweet }) => tweet)
+  const { tweets } = useSelector<RootState, any>(({ tweet }) => tweet)
   const { isLoading } = useGetTweetsQuery()
   const [deleteTweet] = useDeleteTweetMutation()
   const [openNewTweet, setOpenNewTweet] = useState(false)
@@ -22,17 +21,17 @@ const Tweets = () => {
     tweetId: "",
   })
 
-  const handleSetUpdate = async (tweetId) => {
+  const handleSetUpdate = async (tweetId: string) => {
     setUpdateTweet({ open: true, tweetId })
   }
 
-  const handleDelete = async (tweetId) => deleteTweet({ tweetId })
+  const handleDelete = async (tweetId: string) => deleteTweet({ tweetId })
 
   const computeTweetUI = () => {
     if (isLoading) {
       return <Loading />
     } else if (!!tweets.length) {
-      return tweets.map((tweet) => (
+      return tweets.map((tweet: TTweets) => (
         <TweetCard
           key={tweet.id}
           {...tweet}
@@ -67,7 +66,7 @@ const Tweets = () => {
         {updateTweet.open && (
           <UpdateTweet
             open={updateTweet.open}
-            tweet={tweets.find((tweet) => tweet.id === updateTweet.tweetId)}
+            tweet={tweets.find((tweet: TTweets) => tweet.id === updateTweet.tweetId)}
             handleClose={() => setUpdateTweet({ open: false, tweetId: "" })}
           />
         )}
