@@ -29,7 +29,7 @@ const formStyles = {
 interface IUpdateTweetProps {
   tweet: TTweets;
   open: boolean;
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
 }
 
 const UpdateTweet = ({ tweet, open, handleClose }: IUpdateTweetProps) => {

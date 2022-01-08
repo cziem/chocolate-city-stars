@@ -27,7 +27,7 @@ const formStyles = {
 
 interface ICreateTweetProps {
   open: boolean;
-  handleClose: React.MouseEventHandler<HTMLButtonElement>;
+  handleClose: () => void;
 }
 
 const CreateTweet = ({ open, handleClose }: ICreateTweetProps) => {
