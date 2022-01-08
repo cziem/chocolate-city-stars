@@ -48,7 +48,7 @@ function ElevationScroll(props: Props) {
   });
 }
 
-const Header = (props: Props) => {
+const Header = (props: any) => {
   const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
