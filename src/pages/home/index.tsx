@@ -6,7 +6,7 @@ import { TArtiste } from "../../lib/types/artiste.type"
 import { useGetArtistsQuery } from "../../store/artistes/artiste.service"
 
 const Home = () => {
-  const { data, isLoading } = useGetArtistsQuery()
+  const { data, isLoading } = useGetArtistsQuery(undefined)
 
   const computeArtistsUI = () => {
     if (isLoading) {

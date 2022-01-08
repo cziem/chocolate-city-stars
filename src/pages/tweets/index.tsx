@@ -12,8 +12,8 @@ import { TTweets } from "../../lib/types/tweet.type"
 import { useDeleteTweetMutation, useGetTweetsQuery } from "../../store/tweets/tweet.service"
 
 const Tweets = () => {
-  const { tweets } = useSelector<RootState, any>(({ tweet }) => tweet)
-  const { isLoading } = useGetTweetsQuery()
+  const { tweets } = useSelector<TTweets[], any>((tweets) => tweets)
+  const { isLoading } = useGetTweetsQuery(undefined)
   const [deleteTweet] = useDeleteTweetMutation()
   const [openNewTweet, setOpenNewTweet] = useState(false)
   const [updateTweet, setUpdateTweet] = useState({

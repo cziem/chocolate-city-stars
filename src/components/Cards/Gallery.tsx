@@ -16,7 +16,7 @@ const Gallery = () => {
   const computePhotosUI = () => {
     if (isLoading) {
       return <Loading />
-    } else if (!!data.length) {
+    } else if (data && !!data.length) {
       return (
         <ImageList variant="masonry" cols={5} gap={8}>
           {data.map((photo: TPhoto) => (

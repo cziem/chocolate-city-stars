@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { TTweets } from "../../lib/types/tweet.type"
 import { add, create, remove, update } from "./tweet.slice"
 
 // Define a service using a base URL and expected endpoints
@@ -8,14 +9,14 @@ export const tweetApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com/",
   }),
   endpoints: (builder) => ({
-    getTweets: builder.query({
+    getTweets: builder.query<TTweets[], unknown>({
       query: () => `comments`,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
         dispatch(add(data))
       },
     }),
-    createTweet: builder.mutation({
+    createTweet: builder.mutation<TTweets, TTweets>({
       query: ({ ...body }) => ({
         url: `comments`,
         body: body,
@@ -29,7 +30,7 @@ export const tweetApi = createApi({
         }
       },
     }),
-    updateTweet: builder.mutation({
+    updateTweet: builder.mutation<TTweets, unknown>({
       query: ({ id, ...patch }) => ({
         url: `comments/${id}`,
         body: patch,
@@ -43,7 +44,7 @@ export const tweetApi = createApi({
       },
     }),
     deleteTweet: builder.mutation({
-      query: ({ tweetId }) => ({
+      query: ({ tweetId }: { tweetId: string }) => ({
         url: `comments/${tweetId}`,
         method: "DELETE",
       }),
