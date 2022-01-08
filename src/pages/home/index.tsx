@@ -11,7 +11,7 @@ const Home = () => {
   const computeArtistsUI = () => {
     if (isLoading) {
       return <Loading />
-    } else if (!!data.length) {
+    } else if (data && !!data.length) {
       return data.map((artiste: TArtiste) => (
         <ArtisteCard key={artiste.id} {...artiste} />
       ))

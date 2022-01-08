@@ -21,11 +21,15 @@ const Tweets = () => {
     tweetId: "",
   })
 
-  const handleSetUpdate = async (tweetId: string) => {
+  const handleSetUpdate = async (tweetId: string | undefined) => {
+    if (!tweetId) return
     setUpdateTweet({ open: true, tweetId })
   }
 
-  const handleDelete = async (tweetId: string) => deleteTweet({ tweetId })
+  const handleDelete = async (tweetId: string | undefined) => {
+    if (!tweetId) return
+    deleteTweet({ tweetId })
+  }
 
   const computeTweetUI = () => {
     if (isLoading) {
@@ -34,7 +38,7 @@ const Tweets = () => {
       return tweets.map((tweet: TTweets) => (
         <TweetCard
           key={tweet.id}
-          {...tweet}
+          tweet={tweet}
           handleDelete={handleDelete}
           handleUpdate={handleSetUpdate}
         />

@@ -3,7 +3,7 @@
     "target": "ES2015",
     "module": "esnext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": true,
+    "allowJs": false,
     "jsx": "react-jsx",
     "strict": true,  
     "allowSyntheticDefaultImports": true,

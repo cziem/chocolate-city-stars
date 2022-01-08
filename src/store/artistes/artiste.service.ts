@@ -1,3 +1,4 @@
+import { TPhoto } from "./../../lib/types/tweet.type"
 import { TAlbum, TArtiste } from "./../../lib/types/artiste.type"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
@@ -8,13 +9,13 @@ export const artistApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com/",
   }),
   endpoints: (builder) => ({
-    getArtists: builder.query({
+    getArtists: builder.query<TArtiste[], unknown>({
       query: () => `users`,
     }),
-    getAlbums: builder.query<TArtiste, TAlbum[]>({
+    getAlbums: builder.query<TAlbum[], string>({
       query: (artisteId) => `users/${artisteId}/albums`,
     }),
-    getPhotos: builder.query({
+    getPhotos: builder.query<TPhoto[], string>({
       query: (albumId) => `albums/${albumId}/photos`,
     }),
   }),

@@ -4,12 +4,12 @@ import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 import { MdDelete, MdEdit } from "react-icons/md"
-import "./card.styles.scss"
 import { TTweets } from "../../lib/types/tweet.type"
+import "./card.styles.scss"
 
 interface ITCProps {
-  handleUpdate: (id: string | undefined) => void;
-  handleDelete: (id: string | undefined) => void;
+  handleUpdate: (id: string | undefined) => Promise<void>;
+  handleDelete: (id: string | undefined) => Promise<void>;
   tweet: TTweets
 }
 
