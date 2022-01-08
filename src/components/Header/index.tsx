@@ -12,7 +12,6 @@ import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
-import PropTypes from "prop-types"
 import "./header.styles.scss"
 
 const pages = [
@@ -202,4 +201,5 @@ const Header = (props: any) => {
     </ElevationScroll>
   )
 }
+
 export default Header

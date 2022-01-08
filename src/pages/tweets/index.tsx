@@ -1,5 +1,4 @@
 import { Box, Container, Grid } from "@mui/material"
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState"
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import AddTweet from "../../components/Buttons/AddTweet"
