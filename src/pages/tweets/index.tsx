@@ -7,11 +7,13 @@ import CreateTweet from "../../components/Forms/CreateTweet"
 import UpdateTweet from "../../components/Forms/UpdateTweet"
 import Loading from "../../components/Loading"
 import NoData from "../../components/NoData"
+import { ensure } from "../../lib/helper"
 import { TTweets } from "../../lib/types/tweet.type"
+import { IRootState } from "../../store"
 import { useDeleteTweetMutation, useGetTweetsQuery } from "../../store/tweets/tweet.service"
 
 const Tweets = () => {
-  const { tweets } = useSelector<TTweets[], any>((tweets) => tweets)
+  const tweets = useSelector((state: IRootState) => state.tweet.tweets)
   const { isLoading } = useGetTweetsQuery(undefined)
   const [deleteTweet] = useDeleteTweetMutation()
   const [openNewTweet, setOpenNewTweet] = useState(false)
@@ -19,6 +21,8 @@ const Tweets = () => {
     open: false,
     tweetId: "",
   })
+
+  console.log(tweets, 'tweets')
 
   const handleSetUpdate = async (tweetId: string | undefined) => {
     if (!tweetId) return
@@ -33,7 +37,7 @@ const Tweets = () => {
   const computeTweetUI = () => {
     if (isLoading) {
       return <Loading />
-    } else if (!!tweets.length) {
+    } else if (tweets && !!tweets.length) {
       return tweets.map((tweet: TTweets) => (
         <TweetCard
           key={tweet.id}
@@ -69,7 +73,7 @@ const Tweets = () => {
         {updateTweet.open && (
           <UpdateTweet
             open={updateTweet.open}
-            tweet={tweets.find((tweet: TTweets) => tweet.id === updateTweet.tweetId)}
+            tweet={ensure(tweets.find((tweet: TTweets) => tweet.id === updateTweet.tweetId))}
             handleClose={() => setUpdateTweet({ open: false, tweetId: "" })}
           />
         )}
